@@ -838,7 +838,7 @@ content="Xtreme Admin Lite is powerful and clean admin dashboard template, inpir
     </tr>
     </thead>
     <tbody id="tbody">
-        
+    
     </tbody>
     <?php
     include("connect_db.php");
@@ -1108,41 +1108,53 @@ content="Xtreme Admin Lite is powerful and clean admin dashboard template, inpir
                                                 type: "POST",
                                                 url : "index1.php",
                                                 data: { student1 : selectedSbjct1,
-                                                        student2 : selectedSbjct2,
-                                                        student3 : selectedSbjct3,
-                                                        student4 : selectedSbjct4,
-                                                        student5 : selectedSbjct5,
-                                                        student6 : selectedSbjct6,
-                                                        student7 : selectedSbjct7,
-                                                        student8 : selectedSbjct8,
-                                                        student9 : selectedSbjct9,
-                                                        student10 : selectedSbjct10,
-                                                        student11 : selectedSbjct11,
-                                                        student12 : selectedSbjct12
+                                                    student2 : selectedSbjct2,
+                                                    student3 : selectedSbjct3,
+                                                    student4 : selectedSbjct4,
+                                                    student5 : selectedSbjct5,
+                                                    student6 : selectedSbjct6,
+                                                    student7 : selectedSbjct7,
+                                                    student8 : selectedSbjct8,
+                                                    student9 : selectedSbjct9,
+                                                    student10 : selectedSbjct10,
+                                                    student11 : selectedSbjct11,
+                                                    student12 : selectedSbjct12
                                                 }
-                                                }).done(function(data){
-                                                    console.log(data);
-                                                    $("#tbody").html(data);
-                                                });
-                                                
+                                            }).done(function(data){
+                                                console.log(data);
+                                                $("#table1 tr:last").after(data);
+                                                $("#add1").val('');
+                                                $("#add2").val('');
+                                                $("#add3").val('');
+                                                $("#add4").val('');
+                                                $("#add5").val('');
+                                                $("#add6").val('');
+                                                $("#add7").val('');
+                                                $("#add8").val('');
+                                                $("#add9").val('');
+                                                $("#add10").val('');
+                                                $("#add11").val('');
+                                                $("#add12").val('');
                                             });
+                                            
                                         });
-                                        
-                                        </script>
-                                        <script src="../../assets/libs/jquery/dist/jquery.min.js"></script>
-                                        <!-- Bootstrap tether Core JavaScript -->
-                                        <script src="../../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-                                        <script src="../../dist/js/app-style-switcher.js"></script>
-                                        <!--Wave Effects -->
-                                        <script src="../../dist/js/waves.js"></script>
-                                        <!--Menu sidebar -->
-                                        <script src="../../dist/js/sidebarmenu.js"></script>
-                                        <!--Custom JavaScript -->
-                                        <script src="../../dist/js/custom.js"></script>
-                                        <!--This page JavaScript -->
-                                        <!--chartis chart-->
-                                        <script src="../../assets/libs/chartist/dist/chartist.min.js"></script>
-                                        <script src="../../assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
-                                        <script src="../../dist/js/pages/dashboards/dashboard1.js"></script>
-                                        </body>
-                                        </html>
+                                    });
+                                    
+                                    </script>
+                                    <script src="../../assets/libs/jquery/dist/jquery.min.js"></script>
+                                    <!-- Bootstrap tether Core JavaScript -->
+                                    <script src="../../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+                                    <script src="../../dist/js/app-style-switcher.js"></script>
+                                    <!--Wave Effects -->
+                                    <script src="../../dist/js/waves.js"></script>
+                                    <!--Menu sidebar -->
+                                    <script src="../../dist/js/sidebarmenu.js"></script>
+                                    <!--Custom JavaScript -->
+                                    <script src="../../dist/js/custom.js"></script>
+                                    <!--This page JavaScript -->
+                                    <!--chartis chart-->
+                                    <script src="../../assets/libs/chartist/dist/chartist.min.js"></script>
+                                    <script src="../../assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+                                    <script src="../../dist/js/pages/dashboards/dashboard1.js"></script>
+                                    </body>
+                                    </html>

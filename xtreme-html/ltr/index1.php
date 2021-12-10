@@ -46,8 +46,8 @@ if (1 == 1)  {
     echo "<td>" . $mynameOil . "</td>"; 
     echo "<td>" . $mynameTrips . "</td>"; 
     echo "<td>" . $mynameDrivers . "</td>"; 
-    echo "<td><a href='delete.php?id=$last_id'><i class='far fa-edit' id='edit(${del})'></i>" . $mynameDrivers . "</td>"; 
-    echo "<td><a href='delete.php?id=$last_id'><i class='fas fa-trash' id='delItem(${del})'></i>" . $mynameDrivers . "</td>"; 
+    echo "<td><a href='delete.php?id=$last_id'><i class='far fa-edit' id='edit(${del})'></i></td>"; 
+    echo "<td><a href='delete.php?id=$last_id'><i class='fas fa-trash' id='delItem(${del})'></i></td>"; 
     echo "</tr>";
   } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
