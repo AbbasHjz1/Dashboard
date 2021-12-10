@@ -2,20 +2,7 @@
 <?php
 
 
-if ((!isset($_POST['submited'])) && 
-($_SERVER['REQUEST_METHOD'] === 'POST') && 
- !empty($_POST['ModelName']) &&
- !empty($_POST['mynameYear']) &&
- !empty($_POST['mynamePlate']) &&
- !empty($_POST['mynameVehicle']) &&
- !empty($_POST['mynameEngine']) &&
- !empty($_POST['mynameSeats']) &&
- !empty($_POST['mynameAC']) &&
- !empty($_POST['mynameWifi']) &&
- !empty($_POST['mynameMaintenance']) &&
- !empty($_POST['mynameOil']) &&
- !empty($_POST['mynameTrips']) &&
- !empty($_POST['mynameDrivers'])) {
+if (1 == 1)  {
 
   $ModelName = $_POST["ModelName"]; 
   $mynameYear = $_POST["mynameYear"]; 
@@ -44,7 +31,7 @@ if ((!isset($_POST['submited'])) &&
   VALUES ('$ModelName','$mynameYear','$mynamePlate','$mynameVehicle','$mynameEngine','$mynameSeats','$mynameAC','$mynameWifi','$mynameMaintenance','$mynameOil','$mynameTrips','$mynameDrivers')";
   
   if (mysqli_query($conn, $sql)) {
-    echo "New record created successfully";
+    header("location:index.php");
   } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
   }

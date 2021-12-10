@@ -862,7 +862,7 @@
                         echo '<td>'. $row['Driver'] .'</td>';
                         ?>
                         <td> <i class='far fa-edit' id="edit"></i></td>              
-                        <td> <i class='fas fa-trash' id="delItem"></i></td>
+                        <td> <a href="delete.php?id=<?php echo $row['id']; ?>"><i class='fas fa-trash' id="delItem<?php echo $i?>"></i></td>
                         <?php
                         echo '</tr>';
                     }
@@ -982,7 +982,7 @@
                     
                     del++;
                     let const2 =
-                    `<td> <i class='far fa-edit' id="edit(${del})"></i></td>              
+                    `<td><a href="delete.php?id=${del}"> <i class='far fa-edit' id="edit(${del})"></i></td>              
                     <td> <i class='fas fa-trash' id="delItem"></i></td>`;
                     row1.innerHTML += const2;
                     return inc1;
@@ -1044,7 +1044,7 @@
                         if (eo.target.className == "fas fa-trash")
                         {
                             let trash = document.querySelectorAll(".fas");
-                            eo.target.parentElement.parentElement.remove();
+                            eo.target.parentElement.parentElement.parentElement.remove();
                             const id = eo.target.parentElement.parentNode.id;
                             alert(id);
                             var retrieval = localStorage.getItem('busesArray');
@@ -1066,7 +1066,25 @@
                             container.removeChild(container.lastChild);
                         }
                     }
-                    
+                    function deleteRecord(id){
+                        if(confirm("are you sure?")){
+                            fetch('delete.php?=' + id,{
+                                method : 'DELETE'
+                            })
+                            .then((Response) => response.JSON())
+                            .then((result) => {
+                                if(result.delete == 'success'){
+                                    show_message('Success, Deleted!!!.');
+                                    loadTable();
+                                }else{
+                                    show_message('Error',"Can't delete");
+                                }
+                            })
+                            .catch((error) => {
+                                show_message('Error', "Data not Deleted");
+                            })
+                    }
+                }  
                     </script>
                     <script src="../../assets/libs/jquery/dist/jquery.min.js"></script>
                     <!-- Bootstrap tether Core JavaScript -->
@@ -1084,5 +1102,4 @@
                     <script src="../../assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
                     <script src="../../dist/js/pages/dashboards/dashboard1.js"></script>
                     </body>
-                    
                     </html>
