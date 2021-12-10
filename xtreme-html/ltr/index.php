@@ -21,6 +21,7 @@ content="Xtreme Admin Lite is powerful and clean admin dashboard template, inpir
 <link href="../../assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
 <!-- Custom CSS -->
 <link href="../../dist/css/style.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -834,8 +835,11 @@ content="Xtreme Admin Lite is powerful and clean admin dashboard template, inpir
     <th scope="col">Drivers</th>
     <th scope="col">Edit</th>
     <th scope="col">Delete</th>
-    
     </tr>
+    </thead>
+    <tbody id="tbody">
+        
+    </tbody>
     <?php
     include("connect_db.php");
     $i =0;
@@ -985,8 +989,7 @@ content="Xtreme Admin Lite is powerful and clean admin dashboard template, inpir
         `<td><a href="delete.php?id=${del}"> <i class='far fa-edit' id="edit(${del})"></i></td>              
         <td> <i class='fas fa-trash' id="delItem"></i></td>`;
         row1.innerHTML += const2;
-        return inc1;
-        
+        return inc1; 
     }
     
     
@@ -1087,7 +1090,8 @@ content="Xtreme Admin Lite is powerful and clean admin dashboard template, inpir
                                     // } 
                                     
                                     $(document).ready(function(){
-                                        $($sbmtBtn).click(function(){
+                                        $("#sbmtBtn").click(function(e){
+                                            e.preventDefault();
                                             var selectedSbjct1 = $("#add1").val();
                                             var selectedSbjct2 = $("#add2").val();
                                             var selectedSbjct3 = $("#add3").val();
@@ -1103,21 +1107,22 @@ content="Xtreme Admin Lite is powerful and clean admin dashboard template, inpir
                                             $.ajax({
                                                 type: "POST",
                                                 url : "index1.php",
-                                                data: { student1 : selectedStd1,
-                                                        student2 : selectedStd2,
-                                                        student3 : selectedStd3,
-                                                        student4 : selectedStd4,
-                                                        student5 : selectedStd5,
-                                                        student6 : selectedStd6,
-                                                        student7 : selectedStd7,
-                                                        student8 : selectedStd8,
-                                                        student9 : selectedStd9,
-                                                        student10 : selectedStd10,
-                                                        student11 : selectedStd11,
-                                                        student12 : selectedStd12
+                                                data: { student1 : selectedSbjct1,
+                                                        student2 : selectedSbjct2,
+                                                        student3 : selectedSbjct3,
+                                                        student4 : selectedSbjct4,
+                                                        student5 : selectedSbjct5,
+                                                        student6 : selectedSbjct6,
+                                                        student7 : selectedSbjct7,
+                                                        student8 : selectedSbjct8,
+                                                        student9 : selectedSbjct9,
+                                                        student10 : selectedSbjct10,
+                                                        student11 : selectedSbjct11,
+                                                        student12 : selectedSbjct12
+                                                }
                                                 }).done(function(data){
                                                     console.log(data);
-                                                    $("#table1").html(data);
+                                                    $("#tbody").html(data);
                                                 });
                                                 
                                             });
