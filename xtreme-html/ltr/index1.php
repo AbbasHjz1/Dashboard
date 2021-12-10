@@ -3,7 +3,7 @@
 
 
 if (1 == 1)  {
-
+  
   $ModelName = $_POST["ModelName"]; 
   $mynameYear = $_POST["mynameYear"]; 
   $mynamePlate = $_POST["mynamePlate"];
@@ -31,7 +31,20 @@ if (1 == 1)  {
   VALUES ('$ModelName','$mynameYear','$mynamePlate','$mynameVehicle','$mynameEngine','$mynameSeats','$mynameAC','$mynameWifi','$mynameMaintenance','$mynameOil','$mynameTrips','$mynameDrivers')";
   
   if (mysqli_query($conn, $sql)) {
-    header("location:index.php");
+    echo "<tr>";
+    echo "<td>" . $ModelName . "</td>"; 
+    echo "<td>" . $mynameYear . "</td>"; 
+    echo "<td>" . $mynamePlate . "</td>"; 
+    echo "<td>" . $mynameVehicle . "</td>"; 
+    echo "<td>" . $mynameEngine . "</td>"; 
+    echo "<td>" . $mynameSeats . "</td>"; 
+    echo "<td>" . $mynameAC . "</td>"; 
+    echo "<td>" . $mynameWifi . "</td>";  
+    echo "<td>" . $mynameMaintenance . "</td>"; 
+    echo "<td>" . $mynameOil . "</td>"; 
+    echo "<td>" . $mynameTrips . "</td>"; 
+    echo "<td>" . $mynameDrivers . "</td>"; 
+    echo "</tr>";
   } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
   }
