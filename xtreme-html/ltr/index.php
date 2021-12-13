@@ -815,6 +815,7 @@ content="Xtreme Admin Lite is powerful and clean admin dashboard template, inpir
     <input type="number" min="1" id="Iddelete" name="myIdDelete" placeholder="Delete Button">
     
     <button type="button" id="btnDelete">Delete Row</button>
+    <button type="button" id="btnSave">Save Change</button>
     </div>
     <div class="table-responsive" id="mainTable">
     <table class="table" id="table1">
@@ -850,7 +851,7 @@ content="Xtreme Admin Lite is powerful and clean admin dashboard template, inpir
         
         while ($row = mysqli_fetch_assoc($result)) {
             $i=0;
-            echo '<tr>';
+            echo '<tr id="'.$row['id']. '">';
             echo '<td id="'.$row['id'] .$i++.'">'. $row['id'] .'</td>';
             echo '<td id="'.$row['id'] .$i++.'">'. $row['Model'] .'</td>';
             echo '<td id="'.$row['id'] .$i++.'">'. $row['Year1'] .'</td>';
@@ -880,7 +881,7 @@ content="Xtreme Admin Lite is powerful and clean admin dashboard template, inpir
     </div>
     </div>
     <script>
-  
+    
     let dashboardSideBar = document.getElementById("dashboardSideBar");
     let dashboardContainer = document.getElementById("dashboardContainer");
     let busesSection = document.getElementById("busesSection");
@@ -904,12 +905,12 @@ content="Xtreme Admin Lite is powerful and clean admin dashboard template, inpir
     var v=0;
     let delItem = document.createElement("tr");
     
-    var table2 = document.getElementById("table1");
-    table2.addeventListener("click", (eo) => {
-        console.log(eo.target.id);
-    });
-
-
+    
+    
+    
+    
+    
+    
     localRetrieve();
     function input_admin() {
         for (let i = 1; i < 13; i++) {
@@ -945,6 +946,125 @@ content="Xtreme Admin Lite is powerful and clean admin dashboard template, inpir
             
         }  
     }
+    var table2 = document.getElementById("table1");
+    table2.addEventListener("click", (eo) => {
+        eo.preventDefault();
+        if(eo.target.className == "far fa-edit"){
+            let editBtn = document.getElementsByClassName("far fa-edit")
+            // editBtn.style.display = "none";
+            for (let ii = 0; ii < editBtn.length; ii++) {
+                const element = editBtn[ii];
+                element.style.display = "none";
+            }
+            let btnId = eo.target.id;
+            let asd = eo.target.parentElement.previousSibling.previousElementSibling;
+            var suffix = btnId.replace(/[^0-9]/g,''); 
+            let rowId = document.getElementById(eo.target.parentElement.parentElement.id);
+            let rowIdForEdit = rowId.id;
+            rowId.addEventListener("dblclick", (eo) => {
+                let editbtnId =btnId+13;
+                let deletebtnId =btnId+14;
+                if(eo.target.className == "far fa-edit" || eo.target.className == "fas fa-trash"){
+                    eo.preventDefault();
+                    alert("NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
+                }else
+                {
+                    let values = eo.target.textContent.trim();
+                    eo.target.innerHTML = `
+                    <td><input type='text' class='inputText' value='${values}'></td>
+                    `
+                    values='';
+                    const mainTable = document.getElementById("mainTable");
+                    let confirmBtn = document.createElement("button");
+                    confirmBtn.classList.add("confirmButton");
+                    confirmBtn.setAttribute("id","confirmButtionId");
+                    var element =  document.getElementById('confirmButtionId');
+                    confirmBtn.innerText='Confirm your change';
+                    setTimeout(function(){
+                        $(document).ready(function(){
+                                $("#btnSave").click(function(e){
+                                    var inpuz0 = $("#" + rowIdForEdit+0).text();
+                                    var inpuz1 = $("#" + rowIdForEdit+1).text();
+                                    var inpuz2 = $("#" + rowIdForEdit+2).text();
+                                    var inpuz3 = $("#" + rowIdForEdit+3).text();
+                                    var inpuz4 = $("#" + rowIdForEdit+4).text();
+                                    var inpuz5 = $("#" + rowIdForEdit+5).text();
+                                    var inpuz6 = $("#" + rowIdForEdit+6).text();
+                                    var inpuz7 = $("#" + rowIdForEdit+7).text();
+                                    var inpuz8 = $("#" + rowIdForEdit+8).text();
+                                    var inpuz9 = $("#" + rowIdForEdit+9).text();
+                                    var inpuz10 = $("#" + rowIdForEdit+10).text();
+                                    var inpuz11 = $("#" + rowIdForEdit+11).text();
+                                    var inpuz12 = $("#" + rowIdForEdit+12).text();
+                                    $.ajax({
+                                        type: "POST",
+                                        url : "update.php",
+                                        data: { 
+                                            sselectedSbjct0 : inpuz0 ,
+                                            sselectedSbjct1 : inpuz1 ,
+                                            sselectedSbjct2 : inpuz2 ,
+                                            sselectedSbjct3 : inpuz3 ,
+                                            sselectedSbjct4 : inpuz4 ,
+                                            sselectedSbjct5 : inpuz5 ,
+                                            sselectedSbjct6 : inpuz6 ,
+                                            sselectedSbjct7 : inpuz7 ,
+                                            sselectedSbjct8 : inpuz8 ,
+                                            sselectedSbjct9 : inpuz9 ,
+                                            sselectedSbjct10 : inpuz10 ,
+                                            sselectedSbjct11 : inpuz11 ,
+                                            sselectedSbjct12 : inpuz12 
+                                        }
+                                    }).done(function(data){
+                                        alert(data);
+                                    });
+                                    
+                                });
+                            });
+                        }
+                         ,500);
+                    if(document.getElementById("confirmButtionId")){
+                        
+                        eo.preventDefault();
+                    }else
+                    mainTable.prepend(confirmBtn);
+                    
+                    mainTable.addEventListener("click", (eo) => {
+                        if (eo.target.className == "confirmButton"){
+                            input1=document.querySelector('.inputText');
+                            //  input1.style.display ="none";
+                            const inputValue = input1.value;
+                            
+                            input1.parentElement.innerHTML = `
+                            <td>${inputValue}</td>
+                            `;
+                            inputValue.innerText ='';
+                            
+                           eo.target.remove();
+                            
+                            
+                            
+                            
+                            
+                            for (let ii = 0; ii < editBtn.length; ii++) {
+                                const element = editBtn[ii];
+                                element.style.display = "block";
+                                eo.preventDefault();
+                                
+                            }
+                            
+                            
+                            
+                        }
+                    })
+                }
+            })
+            
+        };
+        
+        
+    });
+    
+    
     function insertRow() {
         input_admin();
         
@@ -1003,191 +1123,191 @@ content="Xtreme Admin Lite is powerful and clean admin dashboard template, inpir
     // function mydel(){
         //     this.parentElement.parentElement.style.display="none";
         //   }
-        if(1 == 1) {
-            for (let i = 1; i <= inc1; i++) {                             
-                for (let j = 1; j < 13; j++) { 
-                    table2.addEventListener("click", (eo) => {
-                        if(eo.target.className == "far fa-edit"){
-                            console.log(eo.target.className);
-                        }
-                    })
-                    let x = i.toString();
-                    let y = j.toString();
-                    let xy = x.concat(y);
-                    let wew = document.getElementById(xy);
-                    wew.addEventListener("dblclick", function () {
-                        let value1 = wew.innerHTML;
-                        
-                        wew.innerHTML = `
-                        <td><input type='text' class='inputText' value='${value1}'></td>
-                        `
-                        const mainTable = document.getElementById("mainTable");
-                        let confirmBtn = document.createElement("button");
-                        confirmBtn.classList.add("confirmButton");
-                        confirmBtn.innerText='Confirm your change';
-                        mainTable.prepend(confirmBtn);
-                        
-                        mainTable.addEventListener("click", (eo) => {
-                            if (eo.target.className == "confirmButton"){
-                                input1=document.querySelector('.inputText');
-                                //  input1.style.display ="none";
-                                const inputValue = input1.value;
+        // if(1 == 1) {
+            //     for (let i = 1; i <= inc1; i++) {                             
+                //         for (let j = 1; j < 13; j++) { 
+                    //             table2.addEventListener("click", (eo) => {
+                        //                 if(eo.target.className == "far fa-edit"){
+                            //                     console.log(eo.target.className);
+                            //                 }
+                            //             })
+                            //             let x = i.toString();
+                            //             let y = j.toString();
+                            //             let xy = x.concat(y);
+                            //             let wew = document.getElementById(xy);
+                            //             wew.addEventListener("dblclick", function () {
+                                //                 let value1 = wew.innerHTML;
                                 
-                                input1.parentElement.innerHTML = `
-                                <td>${inputValue}</td>
-                                `;
-                                eo.target.remove();
+                                //                 wew.innerHTML = `
+                                //                 <td><input type='text' class='inputText' value='${value1}'></td>
+                                //                 `
+                                //                 const mainTable = document.getElementById("mainTable");
+                                //                 let confirmBtn = document.createElement("button");
+                                //                 confirmBtn.classList.add("confirmButton");
+                                //                 confirmBtn.innerText='Confirm your change';
+                                //                 mainTable.prepend(confirmBtn);
                                 
-                                
-                                
-                            }
-                        })
-                    })
-                }
-            }
-            
-        }
-        
-        
-        
-        table2.addEventListener("click", (eo) => {
-            if (eo.target.className == "fas fa-trash")
-            {
-                let trash = document.querySelectorAll(".fas");
-                eo.target.parentElement.parentElement.remove();
-                
-            }
-        })
-        
-        function clearFieldsMarks() {                                       // function to clear the fields inside text boxes
-            for (i = 1; i < 13; i++) {
-                document.getElementById('add' + i).value = '';
-            }
-            const container = document.querySelector('.table1');    // clear input boxes for the grades with empty strings
-            while (container.lastChild) {                              // take last child element of the parent container
-                container.removeChild(container.lastChild);
-            }
-        }
-        //     function deleteRecord(id){
-            //         if(confirm("are you sure?")){
-                //             fetch('delete.php?=' + id,{
-                    //                 method : 'DELETE'
-                    //             })
-                    //             .then((Response) => response.JSON())
-                    //             .then((result) => {
-                        //                 if(result.delete == 'success'){
-                            //                     show_message('Success, Deleted!!!.');
-                            //                     loadTable();
-                            //                 }else{
-                                //                     show_message('Error',"Can't delete");
-                                //                 }
-                                //             })
-                                //             .catch((error) => {
-                                    //                 show_message('Error', "Data not Deleted");
-                                    //             })
-                                    //     }
-                                    // } 
-                                    
-                                    $(document).ready(function(){
-                                        $("#btnDelete").click(function(e){
-                                            e.preventDefault();
-                                            
-                                            var todelete = $("#Iddelete").val();
-                                            $.ajax({
-                                                type: "POST",
-                                                url : "delete1.php",
-                                                data: { TODELL : todelete}
-                                                
-                                            }).done(function(data){
-                                                $("#table1").html(data);
-                                            });
-                                            
-                                        });
-                                    });
-                                    $(document).ready(function(){
-                                        $("td").click(function(eo){
-                                            eo.preventDefault();
-                                            if(eo.target.classList == "fas fa-trash"){
-                                                var x = eo.target.id;
-                                                var suffix = x.replace(/[^0-9]/g,''); 
-                                                console.log(suffix);
-                                                
-                                                $.get('delete.php?id='+suffix, function(suffix){
-                                                    
-                                                });
-                                            }
-                                        });
-                                    });
-                                    $(document).ready(function(){
-                                        $("#sbmtBtn").click(function(e){
-                                            e.preventDefault();
-                                            var selectedSbjct1 = $("#add1").val();
-                                            var selectedSbjct2 = $("#add2").val();
-                                            var selectedSbjct3 = $("#add3").val();
-                                            var selectedSbjct4 = $("#add4").val();
-                                            var selectedSbjct5 = $("#add5").val();
-                                            var selectedSbjct6 = $("#add6").val();
-                                            var selectedSbjct7 = $("#add7").val();
-                                            var selectedSbjct8 = $("#add8").val();
-                                            var selectedSbjct9 = $("#add9").val();
-                                            var selectedSbjct10 = $("#add10").val();
-                                            var selectedSbjct11 = $("#add11").val();
-                                            var selectedSbjct12 = $("#add12").val();
-                                            $.ajax({
-                                                type: "POST",
-                                                url : "index1.php",
-                                                data: { student1 : selectedSbjct1,
-                                                    student2 : selectedSbjct2,
-                                                    student3 : selectedSbjct3,
-                                                    student4 : selectedSbjct4,
-                                                    student5 : selectedSbjct5,
-                                                    student6 : selectedSbjct6,
-                                                    student7 : selectedSbjct7,
-                                                    student8 : selectedSbjct8,
-                                                    student9 : selectedSbjct9,
-                                                    student10 : selectedSbjct10,
-                                                    student11 : selectedSbjct11,
-                                                    student12 : selectedSbjct12
-                                                }
-                                            }).done(function(data){
-                                                console.log(data);
-                                                $("#table1 tr:last").after(data);
-                                                $("#add1").val('');
-                                                $("#add2").val('');
-                                                $("#add3").val('');
-                                                $("#add4").val('');
-                                                $("#add5").val('');
-                                                $("#add6").val('');
-                                                $("#add7").val('');
-                                                $("#add8").val('');
-                                                $("#add9").val('');
-                                                $("#add10").val('');
-                                                $("#add11").val('');
-                                                $("#add12").val('');
-                                            });
-                                            
-                                        });
-                                    });
-                                    
-                                    // $(td).click(function(e) {
-                                        //     // does something
-                                        //     alert(e.type); //will return you click
+                                //                 mainTable.addEventListener("click", (eo) => {
+                                    //                     if (eo.target.className == "confirmButton"){
+                                        //                         input1=document.querySelector('.inputText');
+                                        //                         //  input1.style.display ="none";
+                                        //                         const inputValue = input1.value;
+                                        
+                                        //                         input1.parentElement.innerHTML = `
+                                        //                         <td>${inputValue}</td>
+                                        //                         `;
+                                        //                         eo.target.remove();
+                                        
+                                        
+                                        
+                                        //                     }
+                                        //                 })
+                                        //             })
+                                        //         }
+                                        //     }
+                                        
                                         // }
-                                        </script>
-                                        <script src="../../assets/libs/jquery/dist/jquery.min.js"></script>
-                                        <!-- Bootstrap tether Core JavaScript -->
-                                        <script src="../../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-                                        <script src="../../dist/js/app-style-switcher.js"></script>
-                                        <!--Wave Effects -->
-                                        <script src="../../dist/js/waves.js"></script>
-                                        <!--Menu sidebar -->
-                                        <script src="../../dist/js/sidebarmenu.js"></script>
-                                        <!--Custom JavaScript -->
-                                        <script src="../../dist/js/custom.js"></script>
-                                        <!--This page JavaScript -->
-                                        <!--chartis chart-->
-                                        <script src="../../assets/libs/chartist/dist/chartist.min.js"></script>
-                                        <script src="../../assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
-                                        <script src="../../dist/js/pages/dashboards/dashboard1.js"></script>
-                                        </body>
-                                        </html>
+                                        
+                                        
+                                        
+                                        table2.addEventListener("click", (eo) => {
+                                            if (eo.target.className == "fas fa-trash")
+                                            {
+                                                let trash = document.querySelectorAll(".fas");
+                                                eo.target.parentElement.parentElement.remove();
+                                                
+                                            }
+                                        })
+                                        
+                                        function clearFieldsMarks() {                                       // function to clear the fields inside text boxes
+                                            for (i = 1; i < 13; i++) {
+                                                document.getElementById('add' + i).value = '';
+                                            }
+                                            const container = document.querySelector('.table1');    // clear input boxes for the grades with empty strings
+                                            while (container.lastChild) {                              // take last child element of the parent container
+                                                container.removeChild(container.lastChild);
+                                            }
+                                        }
+                                        //     function deleteRecord(id){
+                                            //         if(confirm("are you sure?")){
+                                                //             fetch('delete.php?=' + id,{
+                                                    //                 method : 'DELETE'
+                                                    //             })
+                                                    //             .then((Response) => response.JSON())
+                                                    //             .then((result) => {
+                                                        //                 if(result.delete == 'success'){
+                                                            //                     show_message('Success, Deleted!!!.');
+                                                            //                     loadTable();
+                                                            //                 }else{
+                                                                //                     show_message('Error',"Can't delete");
+                                                                //                 }
+                                                                //             })
+                                                                //             .catch((error) => {
+                                                                    //                 show_message('Error', "Data not Deleted");
+                                                                    //             })
+                                                                    //     }
+                                                                    // } 
+                                                                    
+                                                                    $(document).ready(function(){
+                                                                        $("#btnDelete").click(function(e){
+                                                                            e.preventDefault();
+                                                                            
+                                                                            var todelete = $("#Iddelete").val();
+                                                                            $.ajax({
+                                                                                type: "POST",
+                                                                                url : "delete1.php",
+                                                                                data: { TODELL : todelete}
+                                                                                
+                                                                            }).done(function(data){
+                                                                                $("#table1").html(data);
+                                                                            });
+                                                                            
+                                                                        });
+                                                                    });
+                                                                    $(document).ready(function(){
+                                                                        $("td").click(function(eo){
+                                                                            eo.preventDefault();
+                                                                            if(eo.target.classList == "fas fa-trash"){
+                                                                                var x = eo.target.id;
+                                                                                var suffix = x.replace(/[^0-9]/g,''); 
+                                                                                console.log(suffix);
+                                                                                
+                                                                                $.get('delete.php?id='+suffix, function(suffix){
+                                                                                    
+                                                                                });
+                                                                            }
+                                                                        });
+                                                                    });
+                                                                    $(document).ready(function(){
+                                                                        $("#sbmtBtn").click(function(e){
+                                                                            e.preventDefault();
+                                                                            var selectedSbjct1 = $("#add1").val();
+                                                                            var selectedSbjct2 = $("#add2").val();
+                                                                            var selectedSbjct3 = $("#add3").val();
+                                                                            var selectedSbjct4 = $("#add4").val();
+                                                                            var selectedSbjct5 = $("#add5").val();
+                                                                            var selectedSbjct6 = $("#add6").val();
+                                                                            var selectedSbjct7 = $("#add7").val();
+                                                                            var selectedSbjct8 = $("#add8").val();
+                                                                            var selectedSbjct9 = $("#add9").val();
+                                                                            var selectedSbjct10 = $("#add10").val();
+                                                                            var selectedSbjct11 = $("#add11").val();
+                                                                            var selectedSbjct12 = $("#add12").val();
+                                                                            $.ajax({
+                                                                                type: "POST",
+                                                                                url : "index1.php",
+                                                                                data: { student1 : selectedSbjct1,
+                                                                                    student2 : selectedSbjct2,
+                                                                                    student3 : selectedSbjct3,
+                                                                                    student4 : selectedSbjct4,
+                                                                                    student5 : selectedSbjct5,
+                                                                                    student6 : selectedSbjct6,
+                                                                                    student7 : selectedSbjct7,
+                                                                                    student8 : selectedSbjct8,
+                                                                                    student9 : selectedSbjct9,
+                                                                                    student10 : selectedSbjct10,
+                                                                                    student11 : selectedSbjct11,
+                                                                                    student12 : selectedSbjct12
+                                                                                }
+                                                                            }).done(function(data){
+                                                                                console.log(data);
+                                                                                $("#table1 tr:last").after(data);
+                                                                                $("#add1").val('');
+                                                                                $("#add2").val('');
+                                                                                $("#add3").val('');
+                                                                                $("#add4").val('');
+                                                                                $("#add5").val('');
+                                                                                $("#add6").val('');
+                                                                                $("#add7").val('');
+                                                                                $("#add8").val('');
+                                                                                $("#add9").val('');
+                                                                                $("#add10").val('');
+                                                                                $("#add11").val('');
+                                                                                $("#add12").val('');
+                                                                            });
+                                                                            
+                                                                        });
+                                                                    });
+                                                                    
+                                                                    // $(td).click(function(e) {
+                                                                        //     // does something
+                                                                        //     alert(e.type); //will return you click
+                                                                        // }
+                                                                        </script>
+                                                                        <script src="../../assets/libs/jquery/dist/jquery.min.js"></script>
+                                                                        <!-- Bootstrap tether Core JavaScript -->
+                                                                        <script src="../../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+                                                                        <script src="../../dist/js/app-style-switcher.js"></script>
+                                                                        <!--Wave Effects -->
+                                                                        <script src="../../dist/js/waves.js"></script>
+                                                                        <!--Menu sidebar -->
+                                                                        <script src="../../dist/js/sidebarmenu.js"></script>
+                                                                        <!--Custom JavaScript -->
+                                                                        <script src="../../dist/js/custom.js"></script>
+                                                                        <!--This page JavaScript -->
+                                                                        <!--chartis chart-->
+                                                                        <script src="../../assets/libs/chartist/dist/chartist.min.js"></script>
+                                                                        <script src="../../assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+                                                                        <script src="../../dist/js/pages/dashboards/dashboard1.js"></script>
+                                                                        </body>
+                                                                        </html>

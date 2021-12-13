@@ -33,7 +33,7 @@ if (1 == 1)  {
   if (mysqli_query($conn, $sql)) {
     $last_id = $conn->insert_id;
     $i=0;
-    echo "<tr>";
+    echo "<tr id=".$last_id .">";
     echo "<td id=".$last_id .$i++ .">" . $last_id . "</td>"; 
     echo "<td id=".$last_id .$i++ .">" . $ModelName . "</td>"; 
     echo "<td id=".$last_id .$i++ .">" . $mynameYear . "</td>"; 
