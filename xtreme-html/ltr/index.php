@@ -812,9 +812,9 @@ content="Xtreme Admin Lite is powerful and clean admin dashboard template, inpir
     <button type="button" onclick=clearFieldsMarks()>Clear Fields</button> -->
     <br>
     <br>
-    <input type="number" min="1" id="delete" name="myname" placeholder="Delete Button">
+    <input type="number" min="1" id="Iddelete" name="myIdDelete" placeholder="Delete Button">
     
-    <button type="button" onclick=deleteRow()>Delete Row</button>
+    <button type="button" id="btnDelete">Delete Row</button>
     </div>
     <div class="table-responsive" id="mainTable">
     <table class="table" id="table1">
@@ -842,31 +842,31 @@ content="Xtreme Admin Lite is powerful and clean admin dashboard template, inpir
     </tbody>
     <?php
     include("connect_db.php");
-    $i =0;
+    
     $connection = mysqli_connect('localhost', 'root', '', 'dashboard');
     $sql = "SELECT id,Model, Year1, Plate, Vehicle, Engine, Seats, AC, WiFi, LM, Loil, Trips,Driver FROM drivers";
     $result = mysqli_query($connection, $sql);
     if(mysqli_num_rows($result) > 0){
         
         while ($row = mysqli_fetch_assoc($result)) {
-            $i++;
+            $i=0;
             echo '<tr>';
-            echo '<td>'. $row['id'] .'</td>';
-            echo '<td>'. $row['Model'] .'</td>';
-            echo '<td>'. $row['Year1'] .'</td>';
-            echo '<td>'. $row['Plate'] .'</td>';
-            echo '<td>'. $row['Vehicle'] .'</td>';
-            echo '<td>'. $row['Engine'] .'</td>';
-            echo '<td>'. $row['Seats'] .'</td>';
-            echo '<td>'. $row['AC'] .'</td>';
-            echo '<td>'. $row['WiFi'] .'</td>';
-            echo '<td>'. $row['LM'] .'</td>';
-            echo '<td>'. $row['Loil'] .'</td>';
-            echo '<td>'. $row['Trips'] .'</td>';
-            echo '<td>'. $row['Driver'] .'</td>';
+            echo '<td id="'.$row['id'] .$i++.'">'. $row['id'] .'</td>';
+            echo '<td id="'.$row['id'] .$i++.'">'. $row['Model'] .'</td>';
+            echo '<td id="'.$row['id'] .$i++.'">'. $row['Year1'] .'</td>';
+            echo '<td id="'.$row['id'] .$i++.'">'. $row['Plate'] .'</td>';
+            echo '<td id="'.$row['id'] .$i++.'">'. $row['Vehicle'] .'</td>';
+            echo '<td id="'.$row['id'] .$i++.'">'. $row['Engine'] .'</td>';
+            echo '<td id="'.$row['id'] .$i++.'">'. $row['Seats'] .'</td>';
+            echo '<td id="'.$row['id'] .$i++.'">'. $row['AC'] .'</td>';
+            echo '<td id="'.$row['id'] .$i++.'">'. $row['WiFi'] .'</td>';
+            echo '<td id="'.$row['id'] .$i++.'">'. $row['LM'] .'</td>';
+            echo '<td id="'.$row['id'] .$i++.'">'. $row['Loil'] .'</td>';
+            echo '<td id="'.$row['id'] .$i++.'">'. $row['Trips'] .'</td>';
+            echo '<td id="'.$row['id'] .$i++.'">'. $row['Driver'] .'</td>';
             ?>
-            <td> <i class='far fa-edit' id="edit"></i></td>              
-            <td> <a href="delete.php?id=<?php echo $row['id']; ?>"><i class='fas fa-trash' id="delItem<?php echo $i?>"></i></td>
+            <?php echo '<td id="'.$row['id'] .$i++.'">' ?><i class='far fa-edit' id="edit<?php echo $row['id']?>"></i></td>              
+            <?php echo '<td id="'.$row['id'] .$i++.'">' ?><i class='fas fa-trash' id="delItem<?php echo $row['id']?>"></i></td>
             <?php
             echo '</tr>';
         }
@@ -880,6 +880,7 @@ content="Xtreme Admin Lite is powerful and clean admin dashboard template, inpir
     </div>
     </div>
     <script>
+  
     let dashboardSideBar = document.getElementById("dashboardSideBar");
     let dashboardContainer = document.getElementById("dashboardContainer");
     let busesSection = document.getElementById("busesSection");
@@ -903,6 +904,12 @@ content="Xtreme Admin Lite is powerful and clean admin dashboard template, inpir
     var v=0;
     let delItem = document.createElement("tr");
     
+    var table2 = document.getElementById("table1");
+    table2.addeventListener("click", (eo) => {
+        console.log(eo.target.id);
+    });
+
+
     localRetrieve();
     function input_admin() {
         for (let i = 1; i < 13; i++) {
@@ -918,7 +925,7 @@ content="Xtreme Admin Lite is powerful and clean admin dashboard template, inpir
             retrievedData.forEach(items => {
                 inc1++;
                 var v=0;
-                var table1 = document.getElementById("table1");
+                
                 let row1 = document.createElement("tr");
                 row1.setAttribute("id", inc1);
                 table1.appendChild(row1);
@@ -940,7 +947,7 @@ content="Xtreme Admin Lite is powerful and clean admin dashboard template, inpir
     }
     function insertRow() {
         input_admin();
-        var table1 = document.getElementById("table1");
+        
         var i = 1;
         // var row1 = table1.insertRow(i);
         let row1 = document.createElement("tr")
@@ -971,7 +978,7 @@ content="Xtreme Admin Lite is powerful and clean admin dashboard template, inpir
         
         // var cell1 = row1.insertCell(0);
         var cell1 = document.createElement("td")
-        table1.appendChild(row1);
+        table2.appendChild(row1);
         row1.appendChild(cell1);
         cell1.innerHTML = inc1;
         for (i = 1; i < 13; i++) {
@@ -986,7 +993,7 @@ content="Xtreme Admin Lite is powerful and clean admin dashboard template, inpir
         
         del++;
         let const2 =
-        `<td><a href="delete.php?id=${del}"> <i class='far fa-edit' id="edit(${del})"></i></td>              
+        `<td> <i class='far fa-edit' id="edit(${del})"></i></td>              
         <td> <i class='fas fa-trash' id="delItem"></i></td>`;
         row1.innerHTML += const2;
         return inc1; 
@@ -996,12 +1003,10 @@ content="Xtreme Admin Lite is powerful and clean admin dashboard template, inpir
     // function mydel(){
         //     this.parentElement.parentElement.style.display="none";
         //   }
-        if(localStorage.getItem("busesArray") != null) {
+        if(1 == 1) {
             for (let i = 1; i <= inc1; i++) {                             
                 for (let j = 1; j < 13; j++) { 
-                    const editRow = document.getElementById(i);
-                    const editBtn = document.getElementById("edit"+i);
-                    editRow.addEventListener("click", (eo) => {
+                    table2.addEventListener("click", (eo) => {
                         if(eo.target.className == "far fa-edit"){
                             console.log(eo.target.className);
                         }
@@ -1043,19 +1048,13 @@ content="Xtreme Admin Lite is powerful and clean admin dashboard template, inpir
             
         }
         
-        table1.addEventListener("click", (eo) => {
+        
+        
+        table2.addEventListener("click", (eo) => {
             if (eo.target.className == "fas fa-trash")
             {
                 let trash = document.querySelectorAll(".fas");
-                eo.target.parentElement.parentElement.parentElement.remove();
-                const id = eo.target.parentElement.parentNode.id;
-                alert(id);
-                var retrieval = localStorage.getItem('busesArray');
-                var ab = JSON.parse(retrieval);
-                console.table(ab[1]);
-                
-                ab.splice(id-1, 1);
-                localStorage.setItem("busesArray",JSON.stringify(ab));
+                eo.target.parentElement.parentElement.remove();
                 
             }
         })
@@ -1089,6 +1088,36 @@ content="Xtreme Admin Lite is powerful and clean admin dashboard template, inpir
                                     //     }
                                     // } 
                                     
+                                    $(document).ready(function(){
+                                        $("#btnDelete").click(function(e){
+                                            e.preventDefault();
+                                            
+                                            var todelete = $("#Iddelete").val();
+                                            $.ajax({
+                                                type: "POST",
+                                                url : "delete1.php",
+                                                data: { TODELL : todelete}
+                                                
+                                            }).done(function(data){
+                                                $("#table1").html(data);
+                                            });
+                                            
+                                        });
+                                    });
+                                    $(document).ready(function(){
+                                        $("td").click(function(eo){
+                                            eo.preventDefault();
+                                            if(eo.target.classList == "fas fa-trash"){
+                                                var x = eo.target.id;
+                                                var suffix = x.replace(/[^0-9]/g,''); 
+                                                console.log(suffix);
+                                                
+                                                $.get('delete.php?id='+suffix, function(suffix){
+                                                    
+                                                });
+                                            }
+                                        });
+                                    });
                                     $(document).ready(function(){
                                         $("#sbmtBtn").click(function(e){
                                             e.preventDefault();
@@ -1140,21 +1169,25 @@ content="Xtreme Admin Lite is powerful and clean admin dashboard template, inpir
                                         });
                                     });
                                     
-                                    </script>
-                                    <script src="../../assets/libs/jquery/dist/jquery.min.js"></script>
-                                    <!-- Bootstrap tether Core JavaScript -->
-                                    <script src="../../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-                                    <script src="../../dist/js/app-style-switcher.js"></script>
-                                    <!--Wave Effects -->
-                                    <script src="../../dist/js/waves.js"></script>
-                                    <!--Menu sidebar -->
-                                    <script src="../../dist/js/sidebarmenu.js"></script>
-                                    <!--Custom JavaScript -->
-                                    <script src="../../dist/js/custom.js"></script>
-                                    <!--This page JavaScript -->
-                                    <!--chartis chart-->
-                                    <script src="../../assets/libs/chartist/dist/chartist.min.js"></script>
-                                    <script src="../../assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
-                                    <script src="../../dist/js/pages/dashboards/dashboard1.js"></script>
-                                    </body>
-                                    </html>
+                                    // $(td).click(function(e) {
+                                        //     // does something
+                                        //     alert(e.type); //will return you click
+                                        // }
+                                        </script>
+                                        <script src="../../assets/libs/jquery/dist/jquery.min.js"></script>
+                                        <!-- Bootstrap tether Core JavaScript -->
+                                        <script src="../../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+                                        <script src="../../dist/js/app-style-switcher.js"></script>
+                                        <!--Wave Effects -->
+                                        <script src="../../dist/js/waves.js"></script>
+                                        <!--Menu sidebar -->
+                                        <script src="../../dist/js/sidebarmenu.js"></script>
+                                        <!--Custom JavaScript -->
+                                        <script src="../../dist/js/custom.js"></script>
+                                        <!--This page JavaScript -->
+                                        <!--chartis chart-->
+                                        <script src="../../assets/libs/chartist/dist/chartist.min.js"></script>
+                                        <script src="../../assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+                                        <script src="../../dist/js/pages/dashboards/dashboard1.js"></script>
+                                        </body>
+                                        </html>

@@ -32,22 +32,23 @@ if (1 == 1)  {
   
   if (mysqli_query($conn, $sql)) {
     $last_id = $conn->insert_id;
+    $i=0;
     echo "<tr>";
-    echo "<td>" . $last_id . "</td>"; 
-    echo "<td>" . $ModelName . "</td>"; 
-    echo "<td>" . $mynameYear . "</td>"; 
-    echo "<td>" . $mynamePlate . "</td>"; 
-    echo "<td>" . $mynameVehicle . "</td>"; 
-    echo "<td>" . $mynameEngine . "</td>"; 
-    echo "<td>" . $mynameSeats . "</td>"; 
-    echo "<td>" . $mynameAC . "</td>"; 
-    echo "<td>" . $mynameWifi . "</td>";  
-    echo "<td>" . $mynameMaintenance . "</td>"; 
-    echo "<td>" . $mynameOil . "</td>"; 
-    echo "<td>" . $mynameTrips . "</td>"; 
-    echo "<td>" . $mynameDrivers . "</td>"; 
-    echo "<td><a href='delete.php?id=$last_id'><i class='far fa-edit' id='edit(${del})'></i></td>"; 
-    echo "<td><a href='delete.php?id=$last_id'><i class='fas fa-trash' id='delItem(${del})'></i></td>"; 
+    echo "<td id=".$last_id .$i++ .">" . $last_id . "</td>"; 
+    echo "<td id=".$last_id .$i++ .">" . $ModelName . "</td>"; 
+    echo "<td id=".$last_id .$i++ .">" . $mynameYear . "</td>"; 
+    echo "<td id=".$last_id .$i++ .">" . $mynamePlate . "</td>"; 
+    echo "<td id=".$last_id .$i++ .">" . $mynameVehicle . "</td>"; 
+    echo "<td id=".$last_id .$i++ .">" . $mynameEngine . "</td>"; 
+    echo "<td id=".$last_id .$i++ .">" . $mynameSeats . "</td>"; 
+    echo "<td id=".$last_id .$i++ .">" . $mynameAC . "</td>"; 
+    echo "<td id=".$last_id .$i++ .">" . $mynameWifi . "</td>";  
+    echo "<td id=".$last_id .$i++ .">" . $mynameMaintenance . "</td>"; 
+    echo "<td id=".$last_id .$i++ .">" . $mynameOil . "</td>"; 
+    echo "<td id=".$last_id .$i++ .">" . $mynameTrips . "</td>"; 
+    echo "<td id=".$last_id .$i++ .">" . $mynameDrivers . "</td>"; 
+    echo "<td id=".$last_id .$i++ ."><a href='delete.php?id=$last_id'><i class='far fa-edit' id='edit(${del})'></i></td>"; 
+    echo "<td id=".$last_id .$i++ ."><a href='delete.php?id=$last_id'><i class='fas fa-trash' id='delItem($last_id)'></i></td>"; 
     echo "</tr>";
   } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
