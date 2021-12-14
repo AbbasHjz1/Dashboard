@@ -2,7 +2,8 @@
 <?php
 
 
-if (1 == 1)  {
+if (!empty($_POST["student1"]) && !empty($_POST["student2"]) && !empty($_POST["student3"]) && !empty($_POST["student4"]) && !empty($_POST["student5"]) && !empty($_POST["student6"]) && 
+!empty($_POST["student7"]) && !empty($_POST["student8"]) && !empty($_POST["student9"]) && !empty($_POST["student10"]) && !empty($_POST["student11"]) && !empty($_POST["student12"]))  {
   
   $ModelName = $_POST["student1"]; 
   $mynameYear = $_POST["student2"]; 
@@ -47,8 +48,8 @@ if (1 == 1)  {
     echo "<td id=".$last_id .$i++ .">" . $mynameOil . "</td>"; 
     echo "<td id=".$last_id .$i++ .">" . $mynameTrips . "</td>"; 
     echo "<td id=".$last_id .$i++ .">" . $mynameDrivers . "</td>"; 
-    echo "<td id=".$last_id .$i++ ."><a href='delete.php?id=$last_id'><i class='far fa-edit' id='edit(${del})'></i></td>"; 
-    echo "<td id=".$last_id .$i++ ."><a href='delete.php?id=$last_id'><i class='fas fa-trash' id='delItem($last_id)'></i></td>"; 
+    echo "<td id=".$last_id .$i++ ."><i class='far fa-edit' id='edit(${del})'></i></td>"; 
+    echo "<td id=".$last_id .$i++ ."><i class='fas fa-trash' id='delItem".$last_i.$i++. "></i></td>"; 
     echo "</tr>";
   } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
@@ -57,3 +58,5 @@ if (1 == 1)  {
   mysqli_close($conn);
 }
 
+else
+echo "Please fill all data";

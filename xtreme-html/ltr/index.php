@@ -946,14 +946,20 @@ content="Xtreme Admin Lite is powerful and clean admin dashboard template, inpir
             
         }  
     }
+    let flag = false;
     var table2 = document.getElementById("table1");
     table2.addEventListener("click", (eo) => {
-        eo.preventDefault();
         if(eo.target.className == "far fa-edit"){
+            flag = true;
             let editBtn = document.getElementsByClassName("far fa-edit")
+            let deleteBtn = document.getElementsByClassName("fas fa-trash")
             // editBtn.style.display = "none";
             for (let ii = 0; ii < editBtn.length; ii++) {
                 const element = editBtn[ii];
+                element.style.display = "none";
+            }
+            for (let ii = 0; ii < deleteBtn.length; ii++) {
+                const element = deleteBtn[ii];
                 element.style.display = "none";
             }
             let btnId = eo.target.id;
@@ -961,19 +967,17 @@ content="Xtreme Admin Lite is powerful and clean admin dashboard template, inpir
             var suffix = btnId.replace(/[^0-9]/g,''); 
             let rowId = document.getElementById(eo.target.parentElement.parentElement.id);
             let rowIdForEdit = rowId.id;
-            rowId.addEventListener("dblclick", (eo) => {
+            if(flag == true){
+              rowId.addEventListener("dblclick", (eo) => {
                 let editbtnId =btnId+13;
                 let deletebtnId =btnId+14;
-                if(eo.target.className == "far fa-edit" || eo.target.className == "fas fa-trash"){
-                    eo.preventDefault();
-                    alert("NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
+                console.log(editbtnId.replace(/[^0-9]/g,''));
+                if(eo.target.id == editbtnId.replace(/[^0-9]/g,'') || eo.target.id == deletebtnId.replace(/[^0-9]/g,'')){
                 }else
                 {
                     let values = eo.target.textContent.trim();
                     eo.target.innerHTML = `
-                    <td><input type='text' class='inputText' value='${values}'></td>
-                    `
-                    values='';
+                    <input type='text' class='inputText' value='${values}'>`
                     const mainTable = document.getElementById("mainTable");
                     let confirmBtn = document.createElement("button");
                     confirmBtn.classList.add("confirmButton");
@@ -1024,7 +1028,6 @@ content="Xtreme Admin Lite is powerful and clean admin dashboard template, inpir
                          ,500);
                     if(document.getElementById("confirmButtionId")){
                         
-                        eo.preventDefault();
                     }else
                     mainTable.prepend(confirmBtn);
                     
@@ -1035,11 +1038,12 @@ content="Xtreme Admin Lite is powerful and clean admin dashboard template, inpir
                             const inputValue = input1.value;
                             
                             input1.parentElement.innerHTML = `
-                            <td>${inputValue}</td>
+                            ${inputValue}
                             `;
-                            inputValue.innerText ='';
                             
                            eo.target.remove();
+                           flag = false;
+                           
                             
                             
                             
@@ -1048,20 +1052,27 @@ content="Xtreme Admin Lite is powerful and clean admin dashboard template, inpir
                             for (let ii = 0; ii < editBtn.length; ii++) {
                                 const element = editBtn[ii];
                                 element.style.display = "block";
-                                eo.preventDefault();
                                 
                             }
-                            
+                            for (let ii = 0; ii < deleteBtn.length; ii++) {
+                                const element = deleteBtn[ii];
+                                element.style.display = "block";
+                                
+                            }
+                            return;
                             
                             
                         }
                     })
+
                 }
+                return;
             })
-            
+            }
+
         };
         
-        
+        return;
     });
     
     
