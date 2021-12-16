@@ -48,8 +48,8 @@ if (!empty($_POST["student1"]) && !empty($_POST["student2"]) && !empty($_POST["s
     echo "<td id=".$last_id .$i++ .">" . $mynameOil . "</td>"; 
     echo "<td id=".$last_id .$i++ .">" . $mynameTrips . "</td>"; 
     echo "<td id=".$last_id .$i++ .">" . $mynameDrivers . "</td>"; 
-    echo "<td id=".$last_id .$i++ ."><i class='far fa-edit' id='edit(${del})'></i></td>"; 
-    echo "<td id=".$last_id .$i++ ."><i class='fas fa-trash' id='delItem".$last_i.$i++. "></i></td>"; 
+    echo "<td id=".$last_id .$i++ ."><i class='far fa-edit' id=''></i></td>"; 
+    echo "<td id=".$last_id .$i++ ."><i class='fas fa-trash' id='delItem".$last_id."'></i></td>"; 
     echo "</tr>";
   } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);

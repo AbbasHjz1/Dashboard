@@ -1237,12 +1237,14 @@ content="Xtreme Admin Lite is powerful and clean admin dashboard template, inpir
                                                                     });
                                                                     $(document).ready(function(){
                                                                         $("td").click(function(eo){
-                                                                            eo.preventDefault();
+                                                                            console.log("goodforTd");
                                                                             if(eo.target.classList == "fas fa-trash"){
+                                                                                alert("okay");
                                                                                 var x = eo.target.id;
+                                                                                alert(suffix);
                                                                                 var suffix = x.replace(/[^0-9]/g,''); 
                                                                                 console.log(suffix);
-                                                                                
+                                                                                alert("Naderrrrr");
                                                                                 $.get('delete.php?id='+suffix, function(suffix){
                                                                                     
                                                                                 });
